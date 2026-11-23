@@ -23,6 +23,10 @@ public class Question {
         return Collections.unmodifiableList(answers);
     }
 
+    public boolean isCorrectAnswer(int answerIndex) {
+        return answers.get(answerIndex).isCorrect();
+    }
+
     @Override
     public String toString() {
         return "Question{text='" + text + "', answers=" + answers + '}';

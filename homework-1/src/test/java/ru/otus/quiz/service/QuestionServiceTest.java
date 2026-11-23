@@ -15,7 +15,7 @@ class QuestionServiceTest {
 
     @Test
     void getAllQuestionsReturnsQuestionsFromDao() {
-        Question question = new Question("Is the Sun a star?", Arrays.asList(new Answer("Yes")));
+        Question question = new Question("Is the Sun a star?", Arrays.asList(new Answer("Yes", true)));
         QuestionDao dao = new StubQuestionDao(Arrays.asList(question));
         QuestionService service = new QuestionServiceImpl(dao);
 

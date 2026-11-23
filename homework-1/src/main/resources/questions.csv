@@ -1,5 +1,5 @@
-What is the capital of France?,Paris,London,Berlin,Madrid
-Which language runs in a Spring web application by default?,Java,JavaScript,Python,Ruby
-How many continents are there on Earth?,5,6,7,8
-What does IoC stand for?,Inversion of Control,Index of Codes,Input of Control,Integration of Classes
-Is the Sun a star?,Yes,No
+What is the capital of France?;1;Paris;London;Berlin;Madrid
+Which language is the primary one for writing Spring applications?;1;Java;JavaScript;Python;Ruby
+How many continents are there on Earth?;3;5;6;7;8
+What does IoC stand for?;1;Inversion of Control;Index of Codes;Input of Control;Integration of Classes
+Is the Sun a star?;1;Yes;No
