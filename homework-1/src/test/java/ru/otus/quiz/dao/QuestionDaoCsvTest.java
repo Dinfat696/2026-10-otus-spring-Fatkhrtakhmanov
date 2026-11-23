@@ -34,6 +34,18 @@ class QuestionDaoCsvTest {
     }
 
     @Test
+    void readsCorrectAnswerThatIsNotTheFirstOption() {
+        QuestionDao questionDao = new QuestionDaoCsv("mixed-answers.csv");
+
+        Question question = questionDao.getAllQuestions().get(0);
+
+        assertEquals(3, question.getAnswers().size());
+        assertFalse(question.isCorrectAnswer(0));
+        assertTrue(question.isCorrectAnswer(1));
+        assertFalse(question.isCorrectAnswer(2));
+    }
+
+    @Test
     void throwsExceptionForMalformedLine() {
         QuestionDao questionDao = new QuestionDaoCsv("invalid-questions.csv");
 
