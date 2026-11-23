@@ -8,4 +8,4 @@
 
 | № | Папка | Тема |
 |---|-------|------|
-| 1 | [homework-1](./homework-1) | Spring IoC, XML-контекст, вывод вопросов из CSV |
+| 1 | [homework-1](./homework-1) | Spring IoC, Java + Annotation-based конфигурация, тестирование студентов по CSV |
