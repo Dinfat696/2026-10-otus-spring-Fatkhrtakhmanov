@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.MessageSource;
+import ru.otus.quiz.config.QuizProperties;
 import ru.otus.quiz.domain.Answer;
 import ru.otus.quiz.domain.Question;
 import ru.otus.quiz.domain.Student;
@@ -31,7 +31,7 @@ class TestingServiceImplTest {
     @Mock
     private IOService ioService;
 
-    private final MessageSource messageSource = TestMessages.messageSource();
+    private final MessageService messageService = TestMessages.messageService();
 
     @Test
     void returnsFullScoreWhenAllAnswersCorrect() {
@@ -108,7 +108,10 @@ class TestingServiceImplTest {
     }
 
     private TestingService testingService(int questionsLimit, int passingScore) {
-        return new TestingServiceImpl(questionService, ioService, messageSource, questionsLimit, passingScore);
+        QuizProperties quizProperties = new QuizProperties();
+        quizProperties.setQuestionsLimit(questionsLimit);
+        quizProperties.setPassingScore(passingScore);
+        return new TestingServiceImpl(questionService, ioService, messageService, quizProperties);
     }
 
     private static Question question(String text, String... options) {

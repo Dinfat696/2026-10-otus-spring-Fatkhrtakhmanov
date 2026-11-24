@@ -3,18 +3,17 @@ package ru.otus.quiz;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import ru.otus.quiz.config.AppConfig;
+import org.springframework.test.context.ActiveProfiles;
 import ru.otus.quiz.service.QuizService;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SpringJUnitConfig(classes = {AppConfig.class, QuizApplicationTest.StubIoConfig.class})
-@TestPropertySource("classpath:application-test.properties")
+@SpringBootTest
+@ActiveProfiles("test")
 class QuizApplicationTest {
 
     @Autowired
@@ -62,7 +61,7 @@ class QuizApplicationTest {
         assertTrue(output.contains("Correct answers: 5 of 5"));
     }
 
-    @Configuration
+    @TestConfiguration
     static class StubIoConfig {
 
         @Bean

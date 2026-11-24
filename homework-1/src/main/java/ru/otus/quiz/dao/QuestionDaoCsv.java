@@ -1,9 +1,9 @@
 package ru.otus.quiz.dao;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
+import ru.otus.quiz.config.QuizProperties;
 import ru.otus.quiz.domain.Answer;
 import ru.otus.quiz.domain.Question;
 
@@ -19,11 +19,14 @@ import java.util.List;
 public class QuestionDaoCsv implements QuestionDao {
 
     private static final String FIELD_SEPARATOR = ";";
+    private static final String CLASSPATH_PREFIX = "classpath:";
 
     private final Resource resource;
 
-    public QuestionDaoCsv(@Value("${quiz.csv-path}") String csvPath) {
-        this.resource = new ClassPathResource(csvPath);
+    public QuestionDaoCsv(QuizProperties quizProperties, ResourceLoader resourceLoader) {
+        String fileName = String.format(
+                quizProperties.getCsvPattern(), quizProperties.getLocale().getLanguage());
+        this.resource = resourceLoader.getResource(CLASSPATH_PREFIX + fileName);
     }
 
     @Override

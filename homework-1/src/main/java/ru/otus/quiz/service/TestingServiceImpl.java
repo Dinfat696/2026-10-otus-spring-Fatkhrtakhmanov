@@ -1,35 +1,32 @@
 package ru.otus.quiz.service;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import ru.otus.quiz.config.QuizProperties;
 import ru.otus.quiz.domain.Answer;
 import ru.otus.quiz.domain.Question;
 import ru.otus.quiz.domain.Student;
 import ru.otus.quiz.domain.TestResult;
 
 import java.util.List;
-import java.util.Locale;
 
 @Service
 public class TestingServiceImpl implements TestingService {
 
     private final QuestionService questionService;
     private final IOService ioService;
-    private final MessageSource messageSource;
+    private final MessageService messageService;
     private final int questionsLimit;
     private final int passingScore;
 
     public TestingServiceImpl(QuestionService questionService,
                               IOService ioService,
-                              MessageSource messageSource,
-                              @Value("${quiz.questions-limit}") int questionsLimit,
-                              @Value("${quiz.passing-score}") int passingScore) {
+                              MessageService messageService,
+                              QuizProperties quizProperties) {
         this.questionService = questionService;
         this.ioService = ioService;
-        this.messageSource = messageSource;
-        this.questionsLimit = questionsLimit;
-        this.passingScore = passingScore;
+        this.messageService = messageService;
+        this.questionsLimit = quizProperties.getQuestionsLimit();
+        this.passingScore = quizProperties.getPassingScore();
     }
 
     @Override
@@ -54,11 +51,12 @@ public class TestingServiceImpl implements TestingService {
     private int askAnswer(Question question, int questionNumber, int totalQuestions) {
         List<Answer> answers = question.getAnswers();
         while (true) {
-            ioService.printLine(getMessage("question.header", questionNumber, totalQuestions, question.getText()));
+            ioService.printLine(messageService.getMessage("question.header",
+                    questionNumber, totalQuestions, question.getText()));
             for (int i = 0; i < answers.size(); i++) {
-                ioService.printLine(getMessage("answer.option", i + 1, answers.get(i).getText()));
+                ioService.printLine(messageService.getMessage("answer.option", i + 1, answers.get(i).getText()));
             }
-            ioService.printLine(getMessage("ask.answer"));
+            ioService.printLine(messageService.getMessage("ask.answer"));
 
             String input = ioService.readLine().trim();
             try {
@@ -69,11 +67,7 @@ public class TestingServiceImpl implements TestingService {
             } catch (NumberFormatException ignored) {
                 // fall through to the error message below
             }
-            ioService.printLine(getMessage("error.answer.invalid", answers.size()));
+            ioService.printLine(messageService.getMessage("error.answer.invalid", answers.size()));
         }
-    }
-
-    private String getMessage(String key, Object... args) {
-        return messageSource.getMessage(key, args, Locale.getDefault());
     }
 }

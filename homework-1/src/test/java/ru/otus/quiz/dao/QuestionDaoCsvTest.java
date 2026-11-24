@@ -1,6 +1,8 @@
 package ru.otus.quiz.dao;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.DefaultResourceLoader;
+import ru.otus.quiz.config.QuizProperties;
 import ru.otus.quiz.domain.Question;
 
 import java.util.List;
@@ -14,7 +16,7 @@ class QuestionDaoCsvTest {
 
     @Test
     void readsAllQuestionsFromCsv() {
-        QuestionDao questionDao = new QuestionDaoCsv("test-questions.csv");
+        QuestionDao questionDao = questionDao("test-questions.csv");
 
         List<Question> questions = questionDao.getAllQuestions();
 
@@ -25,7 +27,7 @@ class QuestionDaoCsvTest {
 
     @Test
     void marksCorrectAnswerFromCsv() {
-        QuestionDao questionDao = new QuestionDaoCsv("test-questions.csv");
+        QuestionDao questionDao = questionDao("test-questions.csv");
 
         Question question = questionDao.getAllQuestions().get(0);
 
@@ -35,7 +37,7 @@ class QuestionDaoCsvTest {
 
     @Test
     void readsCorrectAnswerThatIsNotTheFirstOption() {
-        QuestionDao questionDao = new QuestionDaoCsv("mixed-answers.csv");
+        QuestionDao questionDao = questionDao("mixed-answers.csv");
 
         Question question = questionDao.getAllQuestions().get(0);
 
@@ -47,8 +49,14 @@ class QuestionDaoCsvTest {
 
     @Test
     void throwsExceptionForMalformedLine() {
-        QuestionDao questionDao = new QuestionDaoCsv("invalid-questions.csv");
+        QuestionDao questionDao = questionDao("invalid-questions.csv");
 
         assertThrows(QuizDataException.class, questionDao::getAllQuestions);
+    }
+
+    private static QuestionDao questionDao(String csvPattern) {
+        QuizProperties quizProperties = new QuizProperties();
+        quizProperties.setCsvPattern(csvPattern);
+        return new QuestionDaoCsv(quizProperties, new DefaultResourceLoader());
     }
 }

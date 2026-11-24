@@ -8,4 +8,4 @@
 
 | № | Папка | Тема |
 |---|-------|------|
-| 1 | [homework-1](./homework-1) | Spring IoC, Java + Annotation-based конфигурация, тестирование студентов, unit-тесты (JUnit 5, Mockito, AssertJ) |
+| 1 | [homework-1](./homework-1) | Приложение для тестирования студентов на Spring Boot: конфигурация в `application.yml`, локализация сообщений и вопросов (EN/RU), кастомный ANSI-баннер, тесты на `spring-boot-starter-test` |

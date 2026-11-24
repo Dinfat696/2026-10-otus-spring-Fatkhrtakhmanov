@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.MessageSource;
 import ru.otus.quiz.domain.Student;
 import ru.otus.quiz.domain.TestResult;
 import ru.otus.quiz.support.TestMessages;
@@ -29,12 +28,12 @@ class QuizServiceImplTest {
     @Mock
     private TestingService testingService;
 
-    private final MessageSource messageSource = TestMessages.messageSource();
+    private final MessageService messageService = TestMessages.messageService();
     private QuizService quizService;
 
     @BeforeEach
     void setUp() {
-        quizService = new QuizServiceImpl(ioService, studentService, testingService, messageSource);
+        quizService = new QuizServiceImpl(ioService, studentService, testingService, messageService);
     }
 
     @Test
