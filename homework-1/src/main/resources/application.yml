@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: quiz
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  shell:
+    interactive:
+      enabled: true
+    noninteractive:
+      enabled: false
+
+quiz:
+  locale: en
+  csv-pattern: questions_%s.csv
+  questions-limit: 5
+  passing-score: 4
