@@ -1,0 +1,11 @@
+spring:
+  shell:
+    interactive:
+      enabled: false
+    noninteractive:
+      enabled: false
+
+quiz:
+  csv-pattern: test-questions.csv
+  questions-limit: 5
+  passing-score: 3
