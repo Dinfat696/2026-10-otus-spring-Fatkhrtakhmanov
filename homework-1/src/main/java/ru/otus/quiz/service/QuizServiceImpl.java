@@ -27,8 +27,12 @@ public class QuizServiceImpl implements QuizService {
         ioService.printLine(messageService.getMessage("greeting"));
 
         Student student = studentService.determineStudent();
-        TestResult result = testingService.test(student);
+        run(student);
+    }
 
+    @Override
+    public void run(Student student) {
+        TestResult result = testingService.test(student);
         printResult(result);
     }
 
